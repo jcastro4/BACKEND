@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Tiempo de generación: 29-09-2021 a las 18:05:43
+-- Tiempo de generación: 29-09-2021 a las 18:13:35
 -- Versión del servidor: 10.4.13-MariaDB
 -- Versión de PHP: 7.3.21
 
@@ -116,6 +116,7 @@ CREATE TABLE IF NOT EXISTS `medicamento` (
 DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `idpersona` int(11) NOT NULL,
+  `usuarioid` int(11) NOT NULL,
   `idtiporol` int(11) NOT NULL,
   `documento` int(11) NOT NULL,
   `nombre1` varchar(34) NOT NULL,
@@ -132,7 +133,8 @@ CREATE TABLE IF NOT EXISTS `persona` (
   `correo` varchar(50) NOT NULL,
   `estado` varchar(34) NOT NULL,
   PRIMARY KEY (`idpersona`),
-  KEY `idtiporol` (`idtiporol`)
+  KEY `idtiporol` (`idtiporol`),
+  KEY `usuarioid` (`usuarioid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -192,7 +194,8 @@ ALTER TABLE `formula_medicamento`
 -- Filtros para la tabla `persona`
 --
 ALTER TABLE `persona`
-  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`idtiporol`) REFERENCES `rol` (`Idrol`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `persona_ibfk_1` FOREIGN KEY (`idtiporol`) REFERENCES `rol` (`Idrol`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `persona_ibfk_2` FOREIGN KEY (`usuarioid`) REFERENCES `usuario` (`idusuario`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
